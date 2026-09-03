@@ -11,12 +11,24 @@
         <div class="chat-header">
             <h1>Chat App</h1>
         </div>
+        <div class="room-controls">
+            <p class="identity">You are <strong id="username-display"></strong></p>
+            <div class="room-code-row">
+                <span>Room: <strong id="room-code-display"></strong></span>
+                <button type="button" id="copy-room-button">Copy</button>
+                <button type="button" id="create-room-button">Create Room</button>
+            </div>
+            <div class="join-room-row">
+                <input type="text" id="join-room-code" placeholder="Enter room code" maxlength="6" autocomplete="off">
+                <button type="button" id="join-room-button">Join</button>
+            </div>
+            <p id="room-status" class="room-status" aria-live="polite"></p>
+        </div>
         <div class="chat-box" id="chat-box">
-            <!-- Messages will appear here -->
         </div>
         <div class="message-input">
-            <input type="text" id="message" placeholder="Type a message...">
-            <button id="sendButton" onclick="sendMessage()">Send</button>
+            <input type="text" id="message" placeholder="Type a message..." autocomplete="off">
+            <button id="sendButton" type="button">Send</button>
         </div>
     </div>
 

@@ -107,3 +107,60 @@ body {
 .message-input button:hover {
     background-color: #0056b3;
 }
+
+/* Identity and room controls */
+.room-controls {
+    padding: 12px 15px 10px;
+    color: #333;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.85rem;
+}
+
+.identity {
+    margin-bottom: 8px;
+}
+
+.room-code-row,
+.join-room-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.join-room-row {
+    margin-top: 7px;
+}
+
+.room-code-row span {
+    flex: 1;
+}
+
+.room-controls input {
+    min-width: 0;
+    flex: 1;
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    text-transform: uppercase;
+}
+
+.room-controls button {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    background-color: #0072ff;
+    cursor: pointer;
+}
+
+.room-controls button:hover {
+    background-color: #0056b3;
+}
+
+.room-status {
+    min-height: 1em;
+    margin-top: 7px;
+    color: #666;
+    font-size: 0.75rem;
+}
