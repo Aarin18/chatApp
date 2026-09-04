@@ -10,9 +10,7 @@ const roomScreen = document.getElementById("roomScreen");
 const chatScreen = document.getElementById("chatScreen");
 
 function showScreen(screen) {
-  [usernameScreen, roomScreen, chatScreen].forEach((s) =>
-    s.classList.remove("active"),
-  );
+  [usernameScreen, roomScreen, chatScreen].forEach((s) => s.classList.remove("active"));
   screen.classList.add("active");
 }
 
@@ -187,17 +185,15 @@ function enterRoom(code) {
 
 // ---- WebSocket connection ----
 function connectToServer() {
-  socket = new WebSocket("ws://localhost:8080");
+  socket = new WebSocket("wss://chatapp-2-e2k2.onrender.com");
 
-  connectionStatus.innerHTML =
-    '<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span> Connecting...';
+  connectionStatus.innerHTML = '<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span> Connecting...';
   messageInput.disabled = true;
   sendButton.disabled = true;
 
   socket.onopen = function () {
     socket.send(JSON.stringify({ type: "join", room: currentRoom, username }));
-    connectionStatus.innerHTML =
-      '<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary"></span> Connected';
+    connectionStatus.innerHTML = '<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary"></span> Connected';
     messageInput.disabled = false;
     sendButton.disabled = false;
     messageInput.focus();
@@ -233,8 +229,7 @@ function connectToServer() {
   };
 
   socket.onclose = function () {
-    connectionStatus.innerHTML =
-      '<span class="inline-block w-1.5 h-1.5 rounded-full bg-error"></span> Disconnected — reconnecting...';
+    connectionStatus.innerHTML = '<span class="inline-block w-1.5 h-1.5 rounded-full bg-error"></span> Disconnected — reconnecting...';
     messageInput.disabled = true;
     sendButton.disabled = true;
     if (currentRoom) {
@@ -244,8 +239,7 @@ function connectToServer() {
 
   socket.onerror = function (err) {
     console.error("WebSocket error:", err);
-    connectionStatus.innerHTML =
-      '<span class="inline-block w-1.5 h-1.5 rounded-full bg-error"></span> Connection error';
+    connectionStatus.innerHTML = '<span class="inline-block w-1.5 h-1.5 rounded-full bg-error"></span> Connection error';
   };
 }
 
@@ -255,16 +249,12 @@ function sendMessage() {
   if (message === "") return;
 
   if (!socket || socket.readyState !== WebSocket.OPEN) {
-    connectionStatus.innerHTML =
-      '<span class="inline-block w-1.5 h-1.5 rounded-full bg-error"></span> Not connected';
+    connectionStatus.innerHTML = '<span class="inline-block w-1.5 h-1.5 rounded-full bg-error"></span> Not connected';
     return;
   }
 
   const now = new Date();
-  const timeStr = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   const wrapper = document.createElement("div");
   wrapper.className = "flex flex-col items-end w-full pl-8";
