@@ -5,10 +5,10 @@
 
 const WebSocket = require("ws");
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const wss = new WebSocket.Server({ port: PORT });
 
-console.log(`✅ WebSocket chat server running on ws://localhost:${PORT}`);
+console.log(`✅ WebSocket chat server running on port ${PORT}`);
 
 // roomCode -> Set of client sockets in that room
 const rooms = new Map();
@@ -24,19 +24,13 @@ function joinRoom(ws, room, username) {
   ws.room = room;
   ws.username = username;
 
-  console.log(
-    `🔑 ${username} joined room "${room}" (${rooms.get(room).size} in room)`,
-  );
+  console.log(`🔑 ${username} joined room "${room}" (${rooms.get(room).size} in room)`);
 
   // Let everyone else in the room know someone joined
-  broadcastToRoom(
-    room,
-    {
-      type: "system",
-      message: `${username} joined the chat`,
-    },
-    ws,
-  );
+  broadcastToRoom(room, {
+    type: "system",
+    message: `${username} joined the chat`,
+  }, ws);
 }
 
 function leaveRoom(ws) {
@@ -47,14 +41,10 @@ function leaveRoom(ws) {
     if (members.size === 0) {
       rooms.delete(ws.room);
     } else {
-      broadcastToRoom(
-        ws.room,
-        {
-          type: "system",
-          message: `${ws.username} left the chat`,
-        },
-        ws,
-      );
+      broadcastToRoom(ws.room, {
+        type: "system",
+        message: `${ws.username} left the chat`,
+      }, ws);
     }
   }
   ws.room = null;
